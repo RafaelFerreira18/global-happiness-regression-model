@@ -24,17 +24,21 @@ Este projeto aplica técnicas de **Machine Learning** e **Análise Estatística*
 **Fonte:** [Kaggle - World Happiness Report](https://www.kaggle.com/datasets/unsdsn/world-happiness)  
 **Licença:** CC0: Public Domain  
 **Período:** 2015-2022  
-**Registros:** 1.231 países-ano  
-**Features:** 14 variáveis
+**Registros:** 1.367 países-ano (1.366 após limpeza)  
+**Features:** 9 variáveis (5 features preditoras + variável alvo)
 
 ### Variáveis Principais:
 - **Happiness Score** (0-10): Variável alvo para regressão
-- **Economy (GDP per Capita)**: Contribuição do PIB
-- **Family**: Suporte social/familiar
-- **Health (Life Expectancy)**: Expectativa de vida
-- **Freedom**: Liberdade de escolha
-- **Trust (Government Corruption)**: Confiança no governo
-- **Generosity**: Generosidade
+- **Economy (GDP per Capita)**: Contribuição do PIB - FEATURE
+- **Family**: Suporte social/familiar - FEATURE
+- **Health (Life Expectancy)**: Expectativa de vida - FEATURE
+- **Freedom**: Liberdade de escolha - FEATURE
+- **Generosity**: Generosidade - FEATURE
+- **Country**: Nome do país
+- **Region**: Região geográfica
+- **year**: Ano da coleta
+
+**Nota:** Dataset atual utiliza metodologia consistente. Colunas Trust (Government Corruption) e Dystopia Residual foram removidas devido a mudanças metodológicas pós-2016 no relatório original.
 
 ---
 
@@ -59,11 +63,15 @@ Este projeto aplica técnicas de **Machine Learning** e **Análise Estatística*
 ```
 global-happiness-regression-model/
 │
-├── world_happiness_report.csv          # Dataset
+├── world_happiness_report 2.csv        # Dataset principal (usado no projeto)
+├── world_happiness_report.csv          # Dataset alternativo
 ├── world_happiness_analysis.ipynb      # Notebook principal com análises completas
 ├── requirements.txt                    # Dependências
 ├── README.md                           # Este arquivo
-├── LICENSE                             # Licença MIT
+├── GUIA_INTEGRANTE_1_RAFAEL.md         # Guia de apresentação - Parte 1
+├── GUIA_INTEGRANTE_2.md                # Guia de apresentação - Parte 2
+├── GUIA_APRESENTACAO.md                # Guia geral de apresentação
+├── APRESENTACAO_COMPLETA.md            # Slides completos
 ```
 
 ---
