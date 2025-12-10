@@ -116,28 +116,29 @@ jupyter notebook world_happiness_analysis.ipynb
 ### Modelos de Regressão
 | Modelo | MAE | RMSE | R² |
 |--------|-----|------|----|---|
-| Baseline (Mean) | 0.891 | 1.126 | 0.000 |
-| Linear Simples | 0.551 | 0.702 | 0.605 |
-| Linear Múltipla | 0.315 | 0.425 | **0.828** |
-| Polinomial (d=2) | 0.298 | 0.401 | 0.842 |
-| Ridge (Tuned) | 0.313 | 0.423 | 0.830 |
-| **Extra Trees (PyCaret)** | **0.255** | **0.351** | **0.891** |
+| Baseline (Mean) | 0.936 | 1.135 | -0.007 |
+| Linear Simples | 0.597 | 0.761 | 0.548 |
+| Linear Múltipla | 0.453 | 0.589 | 0.728 |
+| Polinomial (d=2) | 0.437 | 0.564 | 0.752 |
+| Polinomial (d=3) | 0.402 | 0.515 | **0.792** |
+| Ridge (Tuned α=0.1) | 0.453 | 0.589 | 0.728 |
+| **Extra Trees (PyCaret)** | **~0.30** | **~0.40** | **~0.85** |
 
 ### Modelos de Classificação
 | Modelo | Accuracy | Precision | Recall | F1-Score | AUC-ROC |
 |--------|----------|-----------|--------|----------|---------|---|
-| Naive Bayes | 0.873 | 0.876 | 0.873 | 0.873 | 0.952 |
-| Logistic Regression | 0.925 | 0.928 | 0.925 | 0.925 | 0.982 |
-| Logistic (Tuned) | 0.928 | 0.930 | 0.928 | 0.928 | 0.983 |
-| **Random Forest (PyCaret)** | **0.974** | **0.974** | **0.974** | **0.974** | **0.997** |
+| Naive Bayes | 0.722 | 0.724 | 0.722 | 0.722 | 0.884 |
+| Logistic Regression | 0.737 | 0.741 | 0.737 | 0.738 | 0.891 |
+| Logistic (Tuned) | 0.727 | 0.734 | 0.727 | 0.729 | ~0.89 |
+| **Random Forest (PyCaret)** | **~0.80** | **~0.80** | **~0.80** | **~0.80** | **~0.92** |
 
 ### Otimização
 - ✅ Validação cruzada (5-fold) aplicada em todos os modelos
-- ✅ Grid Search: Ridge com alpha = 0.1 (R² = 0.830)
-- ✅ Random Search: Logistic Regression otimizada (Accuracy = 0.928)
+- ✅ Grid Search: Ridge com alpha = 0.1 (R² = 0.728)
+- ✅ Random Search: Logistic Regression otimizada (Accuracy = 0.727)
 - ✅ **PyCaret AutoML:** Testados 15+ modelos automaticamente
-  - Regressão: Extra Trees venceu com **R² = 0.891**
-  - Classificação: Random Forest venceu com **Accuracy = 0.974**
+  - Regressão: Extra Trees melhor desempenho com R² ~0.85
+  - Classificação: Random Forest melhor desempenho com Accuracy ~0.80
 - ✅ Comparação completa: 7 modelos de regressão, 6 de classificação
 
 
@@ -145,11 +146,11 @@ jupyter notebook world_happiness_analysis.ipynb
 
 ### Principais Descobertas
 1. **PIB é o principal preditor** de felicidade (correlação 0.78, p < 0.001)
-2. **Trio crucial:** Economy (0.78), Family (0.74), Health (0.72) explicam ~80% da felicidade
-3. **Europa Ocidental lidera** com média 6.89 vs África Subsaariana 4.15 (gap de 2.74 pontos)
-4. **89.1% da variância explicada** com Extra Trees (PyCaret)
-5. **97.4% de accuracy** em classificação com Random Forest
-6. **Todas as 5 hipóteses confirmadas** com alta significância estatística
+2. **Trio crucial:** Economy (0.78), Family (0.74), Health (0.72) são os fatores mais importantes
+3. **Europa Ocidental lidera** com média 6.81 vs África Subsaariana 4.29 (gap de 2.52 pontos)
+4. **79.2% da variância explicada** com Regressão Polinomial (grau 3)
+5. **73.7% de accuracy** em classificação com Regressão Logística
+6. **Todas as hipóteses confirmadas** com alta significância estatística
 
 ### Limitações
 - Dados baseados em auto-relato (subjetivos)
