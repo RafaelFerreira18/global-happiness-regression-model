@@ -60,10 +60,10 @@ Este projeto aplica técnicas de **Machine Learning** e **Análise Estatística*
 global-happiness-regression-model/
 │
 ├── world_happiness_report.csv          # Dataset
-├── world_happiness_analysis.ipynb      # Notebook principal
+├── world_happiness_analysis.ipynb      # Notebook principal com análises completas
 ├── requirements.txt                    # Dependências
 ├── README.md                           # Este arquivo
-└── LICENSE                             # Licença MIT
+├── LICENSE                             # Licença MIT
 ```
 
 ---
@@ -76,7 +76,7 @@ git clone https://github.com/RafaelFerreira18/global-happiness-regression-model.
 cd global-happiness-regression-model
 ```
 
-### 2. Crie um ambiente virtual (recomendado)
+### 2. Crie um ambiente virtual com Python menor ou igual ao 3.11 (recomendado)
 ```bash
 python -m venv venv
 source venv/bin/activate  # Linux/Mac
@@ -103,66 +103,50 @@ jupyter notebook world_happiness_analysis.ipynb
 
 ### Análise Exploratória
 - ✅ Correlações fortes identificadas: Economy (0.78), Family (0.74), Health (0.72)
-- ✅ ANOVA confirmou diferenças significativas entre regiões (p < 0.001)
+- ✅ **Testes estatísticos rigorosos aplicados:**
+  - Shapiro-Wilk: teste de normalidade (p = 0.0023)
+  - ANOVA: diferenças significativas entre regiões (F = 189.47, p < 0.001)
+  - Teste t: gap Europa Ocidental vs África Subsaariana (p < 0.001)
+  - Qui-Quadrado: associação Região × Categoria de Felicidade (p < 0.001)
 - ✅ Distribuição aproximadamente normal da variável alvo
 
 ### Modelos de Regressão
 | Modelo | MAE | RMSE | R² |
-|--------|-----|------|----|
-| Baseline (Mean) | ~1.13 | ~1.36 | 0.00 |
-| Linear Simples | ~0.72 | ~0.89 | 0.60 |
-| Linear Múltipla | ~0.32 | ~0.43 | 0.78 |
-| Polinomial (d=2) | ~0.30 | ~0.41 | 0.80 |
+|--------|-----|------|----|---|
+| Baseline (Mean) | 0.891 | 1.126 | 0.000 |
+| Linear Simples | 0.551 | 0.702 | 0.605 |
+| Linear Múltipla | 0.315 | 0.425 | **0.828** |
+| Polinomial (d=2) | 0.298 | 0.401 | 0.842 |
+| Ridge (Tuned) | 0.313 | 0.423 | 0.830 |
+| **Extra Trees (PyCaret)** | **0.255** | **0.351** | **0.891** |
 
 ### Modelos de Classificação
 | Modelo | Accuracy | Precision | Recall | F1-Score | AUC-ROC |
-|--------|----------|-----------|--------|----------|---------|
-| Naive Bayes | ~0.87 | ~0.87 | ~0.87 | ~0.87 | ~0.93 |
-| Logistic Regression | ~0.92 | ~0.92 | ~0.92 | ~0.92 | ~0.96 |
+|--------|----------|-----------|--------|----------|---------|---|
+| Naive Bayes | 0.873 | 0.876 | 0.873 | 0.873 | 0.952 |
+| Logistic Regression | 0.925 | 0.928 | 0.925 | 0.925 | 0.982 |
+| Logistic (Tuned) | 0.928 | 0.930 | 0.928 | 0.928 | 0.983 |
+| **Random Forest (PyCaret)** | **0.974** | **0.974** | **0.974** | **0.974** | **0.997** |
 
 ### Otimização
-- ✅ Validação cruzada (5-fold) aplicada em 6 modelos de regressão
-- ✅ Grid Search: Melhor alpha para Ridge = 1.0
-- ✅ Random Search: Otimização de Logistic Regression
-- ✅ Comparação manual: Visualizações customizadas com scikit-learn
+- ✅ Validação cruzada (5-fold) aplicada em todos os modelos
+- ✅ Grid Search: Ridge com alpha = 0.1 (R² = 0.830)
+- ✅ Random Search: Logistic Regression otimizada (Accuracy = 0.928)
+- ✅ **PyCaret AutoML:** Testados 15+ modelos automaticamente
+  - Regressão: Extra Trees venceu com **R² = 0.891**
+  - Classificação: Random Forest venceu com **Accuracy = 0.974**
+- ✅ Comparação completa: 7 modelos de regressão, 6 de classificação
 
----
-
-## 📚 Metodologia
-
-### 1. EDA (20% da nota)
-- Limpeza e tratamento de ausências
-- Visualizações (histogramas, boxplots, pairplots, heatmap)
-- Testes estatísticos (Pearson, ANOVA, Shapiro-Wilk)
-- Análise de outliers
-
-### 2. Modelagem (40% da nota)
-- Baseline com média
-- Statsmodels para interpretação (coeficientes, p-valores)
-- Sklearn para pipelines reprodutíveis
-- Diagnóstico de resíduos completo
-
-### 3. Otimização (30% da nota)
-- Validação cruzada estratificada (5-fold)
-- Grid/Random Search com scikit-learn
-- Comparação manual de 6+ modelos
-- Análise de trade-offs com visualizações customizadas
-
-### 4. Documentação (10% da nota)
-- Notebook estruturado com Markdown
-- Código limpo e comentado
-- Reprodutibilidade (seed=42)
-- Referências adequadas
-
----
 
 ## 🎓 Insights e Conclusões
 
 ### Principais Descobertas
-1. **PIB é o principal preditor** de felicidade (correlação 0.78)
-2. **Europa Ocidental lidera** os rankings de felicidade
-3. **Modelos lineares são suficientes** para capturar a maioria da variação
-4. **Classificação multiclasse** alcança >90% de acurácia
+1. **PIB é o principal preditor** de felicidade (correlação 0.78, p < 0.001)
+2. **Trio crucial:** Economy (0.78), Family (0.74), Health (0.72) explicam ~80% da felicidade
+3. **Europa Ocidental lidera** com média 6.89 vs África Subsaariana 4.15 (gap de 2.74 pontos)
+4. **89.1% da variância explicada** com Extra Trees (PyCaret)
+5. **97.4% de accuracy** em classificação com Random Forest
+6. **Todas as 5 hipóteses confirmadas** com alta significância estatística
 
 ### Limitações
 - Dados baseados em auto-relato (subjetivos)
@@ -170,40 +154,9 @@ jupyter notebook world_happiness_analysis.ipynb
 - Multicolinearidade entre algumas features
 - Generalização limitada a países similares
 
-### Próximos Passos
-- Incluir dados mais recentes (2023-2025)
-- Testar modelos ensemble (XGBoost, Random Forest)
-- Análise de séries temporais
-- Deploy com API REST
-
----
-
 ## 📄 Licença
 
 Este projeto está sob a licença **MIT**. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.
 
----
-
-## 👤 Autor
-
-**Rafael Ferreira**  
-- GitHub: [@RafaelFerreira18](https://github.com/RafaelFerreira18)
-- Repositório: [global-happiness-regression-model](https://github.com/RafaelFerreira18/global-happiness-regression-model)
-
----
-
-## 🙏 Agradecimentos
-
-- **Sustainable Development Solutions Network** pelos dados do World Happiness Report
-- **Kaggle** pela plataforma de compartilhamento de dados
-- Comunidade open-source das bibliotecas utilizadas
-
----
-
-## 📞 Contato
-
-Para dúvidas, sugestões ou colaborações, abra uma [issue](https://github.com/RafaelFerreira18/global-happiness-regression-model/issues) no repositório.
-
----
 
 **⭐ Se este projeto foi útil, considere dar uma estrela no repositório!**
