@@ -64,14 +64,9 @@ Este projeto aplica técnicas de **Machine Learning** e **Análise Estatística*
 global-happiness-regression-model/
 │
 ├── world_happiness_report 2.csv        # Dataset principal (usado no projeto)
-├── world_happiness_report.csv          # Dataset alternativo
 ├── world_happiness_analysis.ipynb      # Notebook principal com análises completas
 ├── requirements.txt                    # Dependências
 ├── README.md                           # Este arquivo
-├── GUIA_INTEGRANTE_1_RAFAEL.md         # Guia de apresentação - Parte 1
-├── GUIA_INTEGRANTE_2.md                # Guia de apresentação - Parte 2
-├── GUIA_APRESENTACAO.md                # Guia geral de apresentação
-├── APRESENTACAO_COMPLETA.md            # Slides completos
 ```
 
 ---
